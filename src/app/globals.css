@@ -9,12 +9,12 @@
   --text-primary: #111827;
   --text-secondary: #4b5563;
   --border-color: #e5e7eb;
-  
+
   --brand-blue: #005bd3;
   --brand-blue-hover: #0044a0;
   --brand-red: #ef4444;
   --brand-cyan: #dbeafe;
-  
+
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --transition: all 0.2s ease-in-out;
 }
@@ -45,7 +45,11 @@ body {
   padding: 0 1.5rem;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-weight: 700;
   line-height: 1.2;
   color: var(--text-primary);
@@ -68,7 +72,49 @@ button {
   font-family: inherit;
 }
 
-/* Shopify-style buttons */
+/* Base Classes */
+.text-center {
+  text-align: center;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.align-center {
+  align-items: center;
+}
+
+/* Buttons */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -79,12 +125,13 @@ button {
   border-radius: 6px;
   font-weight: 600;
   transition: var(--transition);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .btn-primary:hover {
   background-color: var(--brand-blue-hover);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary {
@@ -98,6 +145,7 @@ button {
   font-weight: 600;
   border: 1px solid var(--border-color);
   transition: var(--transition);
+  text-align: center;
 }
 
 .btn-secondary:hover {
@@ -115,7 +163,9 @@ button {
   border-radius: 6px;
   font-weight: 600;
   transition: var(--transition);
+  text-align: center;
 }
+
 .btn-whatsapp:hover {
   background-color: #20b858;
 }
@@ -124,6 +174,7 @@ button {
 .section {
   padding: 4rem 0;
 }
+
 .bg-secondary {
   background-color: var(--bg-secondary);
 }
@@ -150,17 +201,18 @@ button {
   transition: var(--transition);
   background-color: white;
 }
+
 .form-input:focus {
   outline: none;
   border-color: var(--brand-blue);
-  box-shadow: 0 0 0 3px rgba(0,91,211,0.1);
+  box-shadow: 0 0 0 3px rgba(0, 91, 211, 0.1);
 }
 
 /* Modals & Overlays */
 .overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   z-index: 50;
   display: flex;
@@ -185,7 +237,7 @@ button {
   position: relative;
   transform: translateY(20px);
   transition: transform 0.3s;
-  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .overlay.active .modal {
@@ -211,14 +263,21 @@ button {
   align-items: center;
   justify-content: center;
   color: white;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   transition: var(--transition);
 }
+
 .fab-btn:hover {
   transform: scale(1.05);
 }
-.fab-phone { background-color: var(--brand-blue); }
-.fab-whatsapp { background-color: #25D366; }
+
+.fab-phone {
+  background-color: var(--brand-blue);
+}
+
+.fab-whatsapp {
+  background-color: #25D366;
+}
 
 /* Product Grid */
 .product-card {
@@ -228,6 +287,143 @@ button {
   background: white;
   transition: var(--transition);
 }
+
 .product-card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.nav-links a {
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--brand-blue);
+}
+
+
+/* ========================== */
+/*   RESPONSIVE GRID SYSTEM   */
+/* ========================== */
+
+/* Hero grid */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1.5rem;
+  color: var(--brand-blue);
+  line-height: 1.1;
+}
+
+/* Steps Grid */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* Why Zora Grid */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.sticky-column {
+  position: sticky;
+  top: 120px;
+}
+
+/* Shop Grid */
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  padding: 3rem;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+/* Flex group for buttons / stats */
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Media Queries for Mobile/Tablet */
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .sticky-column {
+    position: relative;
+    top: 0;
+  }
+
+  .shop-grid {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-links {
+    display: none;
+    /* Hide standard nav links on very small screens, keep CTAs */
+  }
+
+  .header-actions .btn-primary {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    gap: 1rem !important;
+  }
+
+  /* Adjust image stack sizes for mobile */
+  .stack-img-1 {
+    height: 180px !important;
+  }
+
+  .stack-img-2 {
+    height: 150px !important;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
 }
