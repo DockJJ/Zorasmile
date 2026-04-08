@@ -104,7 +104,7 @@ export default function Home() {
               <div className="product-card" style={{ padding: '2rem' }}>
                 <div style={{ fontSize: '3rem', fontWeight: 800, color: 'var(black)', marginBottom: '1rem' }}>02</div>
                 <div style={{ borderRadius: '8px', overflow: 'hidden', marginBottom: '1.5rem', height: '350px' }}>
-                  <Image src="/zora.gif" alt="Apply & Press" width={400} height={300} style={{ width: '100%', height: '100%', objectFit: 'cover' }} unoptimized />
+                  <Image src="/zora.GIF" alt="Apply & Press" width={400} height={300} style={{ width: '100%', height: '100%', objectFit: 'cover' }} unoptimized />
                 </div>
                 <h3 className="mb-2">Apply & Press</h3>
                 <p>Place the gel side firmly against your teeth, lining up the edge with your gum line. Apply gentle pressure to mould the strip snugly against every tooth surface.</p>
