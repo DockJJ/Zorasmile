@@ -6,29 +6,20 @@ import Image from 'next/image';
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
+  const [origin, setOrigin] = useState('');
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setOrigin(window.location.origin);
+    }
+
     // Show popup after 5 seconds
     const timer = setTimeout(() => {
       setShowPopup(true);
     }, 5000);
 
-    // Secure iframe message listener
-    const handleIframeLoad = () => {
-      const iframe = document.getElementById("iFrame13") as HTMLIFrameElement;
-      if (iframe?.contentWindow) {
-        iframe.contentWindow.postMessage({ parentUrl: window.location.href }, "*");
-      }
-    };
-
-    const iframeEl = document.getElementById("iFrame13");
-    if (iframeEl) {
-      iframeEl.addEventListener("load", handleIframeLoad);
-    }
-
     return () => {
       clearTimeout(timer);
-      if (iframeEl) iframeEl.removeEventListener("load", handleIframeLoad);
     };
   }, []);
 
@@ -219,18 +210,63 @@ export default function Home() {
                 <p>Fill out the secure form below to have Zora Smile delivered to you.</p>
               </div>
 
-              {/* Embedded SniperCRM form - Styled with padding */}
-              <div style={{ padding: '20px 20px 40px', background: '#fcfcfc' }}>
-                <iframe
-                  id="iFrame13"
-                  className="iframe"
-                  src="https://app.snipercrm.io/formframe?formid=db511adfed3069&amp;c=0"
-                  frameBorder="0"
-                  scrolling="no"
-                  width="100%"
-                  name="snipercrmform"
-                  style={{ minHeight: '1200px', borderRadius: '8px' }}
-                ></iframe>
+              {/* Custom Order Form */}
+              <div style={{ padding: '2rem', background: '#fcfcfc' }}>
+                <form action="https://formsubmit.co/netreachorders@gmail.com" method="POST" className="flex-col gap-4">
+                  <input type="hidden" name="_captcha" value="false" />
+                  {origin && <input type="hidden" name="_next" value={`${origin}/thank-you`} />}
+                  <input type="hidden" name="_subject" value="New Zora Smile Order!" />
+                  <input type="hidden" name="Price" value="₦ 28,000" />
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '1rem' }}>
+                    <div>
+                      <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Full Name *</label>
+                      <input type="text" name="Full Name" required className="form-input" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }} />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Email Address *</label>
+                      <input type="email" name="Email" required className="form-input" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }} />
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '1rem' }}>
+                    <div>
+                      <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Phone Number *</label>
+                      <input type="tel" name="Phone" required className="form-input" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }} />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Alternative Number (WhatsApp)</label>
+                      <input type="tel" name="WhatsApp / Alt Phone" className="form-input" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Delivery Address *</label>
+                    <textarea name="Address" required rows={3} className="form-input" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', resize: 'vertical' }}></textarea>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '1rem' }}>
+                    <div>
+                      <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>State *</label>
+                      <input type="text" name="State" required className="form-input" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }} />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>City *</label>
+                      <input type="text" name="City" required className="form-input" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }} />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Quantity *</label>
+                    <select name="Quantity" required className="form-input" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'white' }}>
+                      <option value="1 Box (₦ 28,000)">1 Box (₦ 28,000)</option>
+                      <option value="2 Boxes (₦ 56,000)">2 Boxes (₦ 56,000)</option>
+                      <option value="3 Boxes (₦ 84,000)">3 Boxes (₦ 84,000)</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" className="btn-primary w-full" style={{ padding: '1.25rem', fontSize: '1.1rem', marginTop: '1rem', fontWeight: 700 }}>Place Order Now</button>
+                </form>
               </div>
             </div>
 
@@ -269,9 +305,9 @@ export default function Home() {
             <p>Subscribe to our newsletter for exclusive offers and whitening tips.</p>
           </div>
 
-          <form action="https://formsubmit.co/netreachdigitalzainab@gmail.com" method="POST" className="flex-col gap-4">
+          <form action="https://formsubmit.co/netreachorders@gmail.com" method="POST" className="flex-col gap-4">
             <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="#" />
+            {origin && <input type="hidden" name="_next" value={`${origin}/thank-you`} />}
             <input type="email" name="email" placeholder="Your Email Address" required className="form-input" />
             <input type="tel" name="phone" placeholder="Your Phone Number" required className="form-input" />
             <button type="submit" className="btn-primary w-full" style={{ padding: '1rem' }}>Subscribe Now</button>
