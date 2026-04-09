@@ -7,6 +7,8 @@ import Image from 'next/image';
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
   const [origin, setOrigin] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -217,7 +219,7 @@ export default function Home() {
                   {origin && <input type="hidden" name="_next" value={`${origin}/thank-you`} />}
                   <input type="hidden" name="_subject" value="New Zora Smile Order!" />
                   <input type="hidden" name="Price" value="₦ 28,000" />
-                  
+
                   <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '1rem' }}>
                     <div>
                       <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Full Name *</label>
@@ -255,7 +257,7 @@ export default function Home() {
                       <input type="text" name="City" required className="form-input" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }} />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Quantity *</label>
                     <select name="Quantity" required className="form-input" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', backgroundColor: 'white' }}>
@@ -305,14 +307,45 @@ export default function Home() {
             <p>Subscribe to our newsletter for exclusive offers and whitening tips.</p>
           </div>
 
-          <form action="https://formsubmit.co/netreachorders@gmail.com" method="POST" className="flex-col gap-4">
-            <input type="hidden" name="_captcha" value="false" />
-            {origin && <input type="hidden" name="_next" value={`${origin}/thank-you`} />}
-            <input type="email" name="email" placeholder="Your Email Address" required className="form-input" />
-            <input type="tel" name="phone" placeholder="Your Phone Number" required className="form-input" />
-            <button type="submit" className="btn-primary w-full" style={{ padding: '1rem' }}>Subscribe Now</button>
-          </form>
-          <p className="text-center mt-4" style={{ fontSize: '0.8rem', color: 'var(--border-color)' }}>We respect your privacy. No spam.</p>
+          {isSubscribed ? (
+            <div className="text-center" style={{ padding: '2rem 0', color: 'var(--brand-blue)' }}>
+              <h4 style={{ fontSize: '1.5rem', fontWeight: 700 }}>Subscribed!</h4>
+              <p style={{ marginTop: '0.5rem', color: 'var(--text-secondary)' }}>Thank you for joining our newsletter.</p>
+            </div>
+          ) : (
+            <>
+              <form 
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setIsSubmitting(true);
+                  const formData = new FormData(e.currentTarget);
+                  try {
+                    await fetch("https://formsubmit.co/ajax/netreachdigitalzainab@gmail.com", {
+                      method: "POST",
+                      headers: {
+                        'Accept': 'application/json'
+                      },
+                      body: formData,
+                    });
+                    setIsSubscribed(true);
+                  } catch (error) {
+                    console.error("Subscription failed:", error);
+                  } finally {
+                    setIsSubmitting(false);
+                  }
+                }}
+                className="flex-col gap-4"
+              >
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="email" name="email" placeholder="Your Email Address" required className="form-input" />
+                <input type="tel" name="phone" placeholder="Your Phone Number" required className="form-input" />
+                <button type="submit" className="btn-primary w-full" disabled={isSubmitting} style={{ padding: '1rem', opacity: isSubmitting ? 0.7 : 1 }}>
+                  {isSubmitting ? 'Subscribing...' : 'Subscribe Now'}
+                </button>
+              </form>
+              <p className="text-center mt-4" style={{ fontSize: '0.8rem', color: 'var(--border-color)' }}>We respect your privacy. No spam.</p>
+            </>
+          )}
         </div>
       </div>
     </>
